@@ -1,0 +1,33 @@
+# Set the filename
+FILENAME="$1"
+echo $FILENAME
+SPLIT_STRING=$(echo "$FILENAME" | sed -e 's/\([A-Z]\)/ \1/g' -e 's/^ //')
+echo $SPLIT_STRING
+# Get the current date and time
+CURRENT_DATE_TIME="$(date +%Y-%m-%d)"
+
+# echo $CURRENT_DATE_TIME
+
+MONTH=${CURRENT_DATE_TIME:5:2}
+DAY=${CURRENT_DATE_TIME:8:2}
+YEAR=${CURRENT_DATE_TIME:0:4}
+
+
+cat <<EOT > "$FILENAME.java"
+/** $SPLIT_STRING
+*
+* @author Cody Shitagi
+* @since $MONTH/$DAY/$YEAR
+*/
+
+public class $1 {
+  /** main Method.
+  *
+  * <p>args not in use</p>
+  */
+
+  public static void main(String[] args) {
+    System.out.println("hello tuna");
+  } // close main
+} // close class
+EOT
